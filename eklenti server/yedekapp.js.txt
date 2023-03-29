@@ -1,0 +1,37 @@
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json({ limit: "500mb" }));
+app.use(bodyParser.urlencoded({ limit: "500mb", extended: true, parameterLimit: 500000 }));
+const { mongoose } = require('./db/mongoose');
+const birthday_info_user_schema = require('./db/models/user');
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.post('/api_birthday_reminder/birthday_info_user', async (req, res) => {
+
+    const newbirthdayinfo = new birthday_info_user_schema({
+        user_email:req.body.user_email,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        birthday_day: req.body.birthday_day,
+        birthday_month: req.body.birthday_month,
+        birthday_year: req.body.birthday_year,
+        
+    })
+    try {
+        let newkullanici = await newbirthdayinfo.save();
+        res.json(newkullanici);
+    } catch (err) {
+        console.log('Doğum günü tarihi kaydederken hata oluştu:', err);
+    }
+})
+
+
+
+app.listen(3000, () => {
+    console.log('Listening on port 3000');
+});

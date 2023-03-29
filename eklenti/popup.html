@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <img src="src/images/turkey_flag.png" alt="Turkish_Language" id="turkey_flag">
+  <img src="src/images/england_flag.png" alt="English_Language" id="england_flag"> <br><br> <br>
+  <meta charset="UTF-8">
+  <title>Birthday Reminder</title>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+</head>
+
+<body>
+
+
+  <span id="dgh" style="font-weight: 750;">Birthday Reminder</span>
+  <br> <br>
+
+  <button id="gizli-button" style="display: none;"></button>
+
+
+  <div id="form-container" style="display: none;">
+    <span id="email-label">Logged in user email:</span>
+    <span id="email"></span>
+
+    <p id="add-info">Please enter the information of the person you want to add:</p>
+    <input id="first-name" type="text" placeholder="Name">
+    <input id="last-name" type="text" placeholder="Surname">
+    <input id="birthday" type="date">
+    <button id="submit-button">Submit</button>
+    <button id="show-button">Show Contacts</button>
+    <br>
+    <button id="logout-button">Logout</button>
+  </div>
+  <br>
+  <button id="login">Login with Google</button>
+
+  <div id="birthday-list"></div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
