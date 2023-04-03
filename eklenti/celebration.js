@@ -70,14 +70,17 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 window.addEventListener('load', function () {
-  setTimeout(function () {
-    document.getElementById('click').click();
-  }, 2000);
-  document.getElementById('click').addEventListener('change', function () {
-    if (this.checked) {
-      console.log('Clicked');
-    }
-  });
+  var clickElement = document.getElementById('click');
+  if (clickElement) {
+    setTimeout(function () {
+      clickElement.click();
+    }, 2000);
+    clickElement.addEventListener('change', function () {
+      if (this.checked) {
+        console.log('Clicked');
+      }
+    });
+  }
 });
 
 

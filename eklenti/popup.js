@@ -76,7 +76,7 @@ chrome.storage.local.get('language', function (result) {
   if (result.language === '' || result.language === "" || result.language === NaN || result.language === null) {
     chrome.storage.local.set({ "language": "eng" });
   };
-  
+
   if (result.language === 'tr') {
 
     dil_tr();
@@ -106,7 +106,6 @@ document.getElementById("turkey_flag").addEventListener("click", function () {
 });
 
 var userLang = navigator.language;
-console.log('Kullanıcının dili: ' + userLang);
 
 const showButton = document.getElementById('show-button');
 const birthdayList = document.getElementById('birthday-list');
@@ -239,15 +238,23 @@ function checkUserEmail() {
         // Check if person is already registered
         try {
           var response = await fetch(`https://www.furkancakr.online/api_birthday_reminder/birthday_info_user/${user_email}`);
+          isExistingPerson = false;
+
           if (!response.ok) {
-            throw new Error('Sunucudan hata alındı.');
+            console.log('Sunucudan hata alındı.');
+            kayitliemailvarmi = false;
+
+          } else {
+            kayitliemailvarmi = true;
           }
-          var data = await response.json();
-          data.forEach(person => {
-            if (person.first_name === firstName && person.last_name === lastName && person.birthday_day === day && person.birthday_month === month && person.birthday_year === year) {
-              isExistingPerson = true;
-            }
-          });
+          if (kayitliemailvarmi) {
+            var data = await response.json();
+            data.forEach(person => {
+              if (person.first_name === firstName && person.last_name === lastName && person.birthday_day === day && person.birthday_month === month && person.birthday_year === year) {
+                isExistingPerson = true;
+              }
+            });
+          }
           if (isExistingPerson) {
             chrome.storage.local.get("language", function (result) {
               if (result.language === "tr") {
@@ -280,7 +287,7 @@ function checkUserEmail() {
               var errorMessage = await response.text();
               throw new Error(`Sunucudan hata alındı: ${errorMessage}`);
             }
-            else{
+            else {
               document.getElementById("first-name").value = "";
               document.getElementById("last-name").value = "";
               document.getElementById("birthday").value = "";
@@ -295,6 +302,7 @@ function checkUserEmail() {
               }
             });
           }
+
         } catch (error) {
           console.error('Kişi eklenirken bir hata oluştu:', error);
         }
@@ -324,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const user_email = response.email;
       console.log(user_email); // önce log'lamalısınız çünkü chrome.runtime.sendMessage asenkron bir işlem
       chrome.storage.local.set({ "user_email": user_email }, function () {
-        console.log("User email saved to storage: " + user_email);
+        //console.log("User email saved to storage: " + user_email);
       });
 
       if (user_email !== "" || user_email !== null) {
@@ -342,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // birthdayList.innerHTML'in temizlenmesi
     birthdayList.innerHTML = '';
     chrome.storage.local.set({ "user_email": "" }, function () {
-      console.log("User email saved to storage: " + user_email);
+      //console.log("User email saved to storage: " + user_email);
     });
 
     // Formu gizleme

@@ -45,7 +45,12 @@ app.get('/api_birthday_reminder/birthday_info_user/:user_email', async (req, res
     try {
         const birthdayInfo = await birthday_info_user_schema.findOne({ user_email: req.params.user_email });
         if (!birthdayInfo) {
-            return res.status(404).json({ message: 'Kullanıcı bulunamadı.' });
+             return res.status(404).json({ message: 'Kullanıcı bulunamadı. 1' });
+          //  birthdayInfo = new birthday_info_user_schema({
+            //    user_email
+            //});
+            //let newkullanici = await birthdayInfo.save();
+            //res.json(newkullanici);
         }
         res.json(birthdayInfo.users);
     } catch (err) {
@@ -58,11 +63,11 @@ app.delete('/api_birthday_reminder/birthday_info_user/:user_email/:first_name/:l
     try {
         const birthdayInfo = await birthday_info_user_schema.findOne({ user_email: req.params.user_email });
         if (!birthdayInfo) {
-            return res.status(404).json({ message: 'Kullanıcı bulunamadı.' });
+            return res.status(404).json({ message: 'Kullanıcı bulunamadı. 2' });
         }
         const userIndex = birthdayInfo.users.findIndex(user => user.first_name === req.params.first_name && user.last_name === req.params.last_name);
         if (userIndex === -1) {
-            return res.status(404).json({ message: 'Kullanıcı bulunamadı.' });
+            return res.status(404).json({ message: 'Kullanıcı bulunamadı. 3' });
         }
         birthdayInfo.users.splice(userIndex, 1);
         await birthdayInfo.save();

@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.2",
   "manifest_version": 3,
   "name": "Birthday Reminder",
   "description": "Birthday Reminder for Your Friends and Family!",
@@ -9,9 +9,10 @@
   "permissions": [
     "storage",
     "identity"
-    
-
   ],
+  "icons": {
+    "48": "src/images/cake.png"
+  },
   "background": {
     "service_worker": "background.js"
   },
@@ -23,9 +24,12 @@
   },
   "content_scripts": [
     {
-        "matches": ["<all_urls>"],
-        "js": ["celebration.js"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "celebration.js"
+      ]
     }
-]
-  
+  ]
 }
