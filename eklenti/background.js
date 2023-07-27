@@ -1,5 +1,8 @@
-const clientId = '559438139153-dpl1b0n0h8s2pokpcuuft50mfro2kqq4.apps.googleusercontent.com';
-const clientSecret = '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';
+const dotenv = require('dotenv');
+dotenv.config({path: './background.env'});
+const clientId = process.env.clientId;
+const clientSecret = process.env.clientSecret;
+
 const redirectUri = chrome.identity.getRedirectURL();
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.method === 'getAuthToken') {

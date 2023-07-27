@@ -6,6 +6,11 @@ app.use(bodyParser.urlencoded({ limit: "500mb", extended: true, parameterLimit: 
 const { mongoose } = require('./db/mongoose');
 const birthday_info_user_schema = require('./db/models/user');
 const nodeoutlook = require('nodejs-nodemailer-outlook');
+const dotenv = require('dotenv');
+dotenv.config({path: './emailinfo.env'});
+
+
+
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
@@ -324,12 +329,15 @@ async function sendBirthdayEmails(birthdayList) {
       const subject = 'Birthday Reminder!';
   
       try {
+        const email = process.env.EMAIL_USERNAME;
+        const password = process.env.EMAIL_PASSWORD;
+        console.log(username,password)
         await nodeoutlook.sendEmail({
           auth: {
-            user: "birthdayreminder2023@outlook.com",
-            pass: "fO6n9c2e7*nf"
+            user: email,
+            pass: password
           },
-          from: 'birthdayreminder2023@outlook.com',
+          from: email,
           to: email,
           subject: subject,
           html: html
