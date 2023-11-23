@@ -149,7 +149,7 @@ function checkUserEmail() {
 
       // Retrieve the birthday data from the server
       async function fetchBirthdayData(user_email) {
-        const response = await fetch(`https://www.furkancakr.online/api_birthday_reminder/birthday_info_user/${user_email}`);
+        const response = await fetch(`https://www.backend-birthday-reminder.furkancakir.dev/api_birthday_reminder/birthday_info_user/${user_email}`);
         if (!response.ok) {
           throw new Error('Sunucudan hata alındı.');
         }
@@ -191,7 +191,7 @@ function checkUserEmail() {
               const fullName = listItem.textContent.trim();
               const [name, birthDate] = fullName.split(" - ");
               const [firstName, lastName] = name.split(" ");
-              const url = `https://www.furkancakr.online/api_birthday_reminder/birthday_info_user/${user_email}/${firstName}/${lastName}`;
+              const url = `https://www.backend-birthday-reminder.furkancakir.dev/api_birthday_reminder/birthday_info_user/${user_email}/${firstName}/${lastName}`;
 
               // Send a DELETE request to the server
               const response =
@@ -237,7 +237,7 @@ function checkUserEmail() {
         let isExistingPerson = false;
         // Check if person is already registered
         try {
-          var response = await fetch(`https://www.furkancakr.online/api_birthday_reminder/birthday_info_user/${user_email}`);
+          var response = await fetch(`https://www.backend-birthday-reminder.furkancakir.dev/api_birthday_reminder/birthday_info_user/${user_email}`);
           isExistingPerson = false;
 
           if (!response.ok) {
@@ -269,7 +269,7 @@ function checkUserEmail() {
             return;
           } else {
             // Send POST request to server
-            var response = await fetch(`https://www.furkancakr.online/api_birthday_reminder/birthday_info_user`, {
+            var response = await fetch(`https://www.backend-birthday-reminder.furkancakir.dev/api_birthday_reminder/birthday_info_user`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'

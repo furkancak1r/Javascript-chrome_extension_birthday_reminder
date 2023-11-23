@@ -1,7 +1,6 @@
-const dotenv = require('dotenv');
-dotenv.config({path: './background.env'});
-const clientId = process.env.clientId;
-const clientSecret = process.env.clientSecret;
+
+const clientId = "559438139153-dpl1b0n0h8s2pokpcuuft50mfro2kqq4.apps.googleusercontent.com";
+const clientSecret = "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";
 
 const redirectUri = chrome.identity.getRedirectURL();
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -42,7 +41,7 @@ chrome.runtime.onStartup.addListener(async function () {
   try {
     const { user_email } = await chrome.storage.local.get('user_email');
     if (user_email) {
-      const response = await fetch(`https://www.furkancakr.online/api_birthday_reminder/birthday_info_user/${user_email}`);
+      const response = await fetch(`https://www.backend-birthday-reminder.furkancakir.dev/api_birthday_reminder/birthday_info_user/${user_email}`);
       if (!response.ok) {
         throw new Error('Sunucudan hata alındı.');
       }
@@ -106,7 +105,7 @@ chrome.runtime.onStartup.addListener(async function () {
   try {
     const { user_email } = await chrome.storage.local.get('user_email');
     if (user_email) {
-      const response = await fetch(`https://www.furkancakr.online/api_birthday_reminder/birthday_info_user/${user_email}`);
+      const response = await fetch(`https://www.backend-birthday-reminder.furkancakir.dev/api_birthday_reminder/birthday_info_user/${user_email}`);
       if (!response.ok) {
         throw new Error('Sunucudan hata alındı.');
       }
@@ -157,7 +156,7 @@ chrome.storage.local.get('user_email', async function (result) {
   const user_email = result.user_email;
   if (user_email) {
       try {
-          const response = await fetch(`https://www.furkancakr.online/api_birthday_reminder/birthday_info_user/${user_email}`);
+          const response = await fetch(`https://www.backend-birthday-reminder.furkancakir.dev/api_birthday_reminder/birthday_info_user/${user_email}`);
           if (!response.ok) {
               throw new Error('Sunucudan hata alındı.');
           }

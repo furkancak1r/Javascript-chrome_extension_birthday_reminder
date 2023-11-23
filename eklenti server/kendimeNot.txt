@@ -1,0 +1,1 @@
+Node.js serverda yayınlarken package.json'dan node modulünü sil.

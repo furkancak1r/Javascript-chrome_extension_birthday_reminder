@@ -7,7 +7,7 @@ const { mongoose } = require('./db/mongoose');
 const birthday_info_user_schema = require('./db/models/user');
 const nodeoutlook = require('nodejs-nodemailer-outlook');
 const dotenv = require('dotenv');
-dotenv.config({path: './emailinfo.env'});
+dotenv.config({ path: './emailinfo.env' });
 
 
 
@@ -121,9 +121,9 @@ async function getBirthdays() {
 
 async function sendBirthdayEmails(birthdayList) {
     for (const birthdayPerson of birthdayList) {
-      const { email, firstName, lastName, age } = birthdayPerson;
-      //const html = `<p>Merhaba ${firstName} ${lastName},</p><p>Doğum gününüzü kutluyoruz! Umarız harika bir gün geçirirsiniz.</p>`;
-      const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        const { email, firstName, lastName, age } = birthdayPerson;
+        //const html = `<p>Merhaba ${firstName} ${lastName},</p><p>Doğum gününüzü kutluyoruz! Umarız harika bir gün geçirirsiniz.</p>`;
+        const html = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" style="width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
       <head>
       <meta charset="UTF-8">
@@ -326,43 +326,43 @@ async function sendBirthdayEmails(birthdayList) {
       </div>
       </body>
       </html>`;
-      const subject = 'Birthday Reminder!';
-  
-      try {
-        const email = process.env.EMAIL_USERNAME;
-        const password = process.env.EMAIL_PASSWORD;
-        console.log(username,password)
-        await nodeoutlook.sendEmail({
-          auth: {
-            user: email,
-            pass: password
-          },
-          from: email,
-          to: email,
-          subject: subject,
-          html: html
-        });
-      } catch (err) {
-        console.error(`E-posta gönderilemedi: ${err}`);
-      }
-      // Sıradaki kişinin e-postasını göndermek için bekleme süresi
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+        const subject = 'Birthday Reminder!';
+
+        try {
+            const email = process.env.EMAIL_USERNAME;
+            const password = process.env.EMAIL_PASSWORD;
+            console.log(username, password)
+            await nodeoutlook.sendEmail({
+                auth: {
+                    user: email,
+                    pass: password
+                },
+                from: email,
+                to: email,
+                subject: subject,
+                html: html
+            });
+        } catch (err) {
+            console.error(`E-posta gönderilemedi: ${err}`);
+        }
+        // Sıradaki kişinin e-postasını göndermek için bekleme süresi
+        await new Promise((resolve) => setTimeout(resolve, 5000));
     }
-  }
-  
+}
+
 async function startSending() {
-  try {
-    const birthdayList = await getBirthdays();
-    await sendBirthdayEmails(birthdayList);
-  } catch (err) {
-    console.error(`Hata oluştu: ${err}`);
-  }
+    try {
+        const birthdayList = await getBirthdays();
+        await sendBirthdayEmails(birthdayList);
+    } catch (err) {
+        console.error(`Hata oluştu: ${err}`);
+    }
 }
 
 const cron = require('node-cron');
 
 cron.schedule('0 8 * * *', () => {
-  startSending();
+    startSending();
 });
 
 // Bu fonksiyonu saat 8'de bir kere çalışacak şekilde ayarlayabilirsin
@@ -399,6 +399,7 @@ nodeoutlook.sendEmail({
 );*/
 
 
-app.listen(3000, () => {
+app.listen(3002, () => {
     console.log('Listening on port 3000');
 });
+
